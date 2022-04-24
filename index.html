@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <style>
+      #input{
+          height: 30px;
+          width:400px;
+          text-align: center;
+          margin-left: 500px;
+          margin-top: 10px;
+
+      }
+      #button{
+          height:36px;
+          width: 100px;
+          margin: auto;
+      }
+     
+      
+      #container{
+          display:grid;
+          gap:2vw;
+          grid-template-columns: repeat(3,1fr);
+          /* width:60%; */
+          border: 1px solid green;
+      }
+      .div{
+          /* height:10%; */
+       width:20%;
+      }
+
+    
+
+    </style>
+</head>
+<body>
+    <input type="text" placeholder="Enter movie name" id="input">
+    <button id="button">Search</button>
+   <div id="container"></div>
+   <div id="Box"></div>
+</body>
+<script>
+ document.getElementById('button').addEventListener("click",function(){
+  var movieName=document.querySelector("#input").value;
+  fetch(('https://www.omdbapi.com/?s='+movieName+'&apikey=3040a61a')).then((response) => {
+    response.json().then((result)=>{
+        if(result.Search==undefined){
+            document.querySelector("#container").innerHTML="";
+            document.querySelector("#Box").innerHTML="";
+            // var img=document.createElement("img");
+            // img.setAttribute("src","evalaution 3 psc same\licious-clone\movie app\img1.jpg");
+            // img.setAttribute("id","errorImg");
+            
+            // var heading=document.querySelector("h2");
+            // heading.setAttribute("id","error");
+            // heading.innerText="Movie Not Present";
+            // document.querySelector("#Box").append(img,heading);
+            // console.log('Not Found')
+            
+            var img=document.createElement("img");
+            img.setAttribute("src",'img1.jpg');
+            img.setAttribute('id','errorImg');
+            document.querySelector("#Box").append(img);
+        }else{
+            displayData(result.Search)
+        }
+
+    })
+    // if(document.querySelector(".ratings").value>4){
+    //        var recommend= document.createElement("p");
+    //        recommend.innerText=recommened;
+
+    //     }
+
+  })
+ })
+ function displayData(movies)
+ {
+    document.querySelector("#container").innerHTML="";
+    document.querySelector("#Box").innerHTML="";
+    movies.forEach(element => {
+        
+        // console.log(element.imdbID);
+
+        fetch(('https://www.omdbapi.com/?i='+element.imdbID+'&apikey=3040a61a')).then((response) => {
+         response.json().then((result)=>{
+            console.log(result)
+            // console.log(result.Poster)
+           var div=document.createElement("div")
+        div.setAttribute("class","Div");
+        var img=document.createElement("img")
+        img.setAttribute("class","Img");
+        img.setAttribute("src",result.Poster);
+
+        var actor=document.createElement("p")
+        actor.setAttribute("class","actor");
+        actor.innerText=result.Actors;
+
+        var country=document.createElement("p")
+        country.setAttribute("class","country");
+        country.innerText=result.Country;
+
+        var release_date=document.createElement("date")
+        release_date.setAttribute("class","Release");
+        release_date.innerText=result.Released;
+    
+        var name=document.createElement("p")
+        name.setAttribute("class","Name");
+        name.innerText=result.Title;
+
+        var type=document.createElement("p")
+        type.setAttribute("class","Type");
+        type.innerText=result.Type;
+       
+          var year=document.createElement("p")
+        year.setAttribute("class","Year");
+        year.innerText=result.Year;
+         
+        var ratings=document.createElement("p")
+        ratings.setAttribute("class","ratings");
+        ratings.innerText=result.imdbRating;
+       
+        
+      
+
+        div.append(img,actor,country,name,type,year,release_date,ratings)
+        document.querySelector("#container").append(div)
+     
+        })
+       })
+
+
+
+      
+    });
+ }
+
+</script>
+</html>
