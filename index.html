@@ -51,29 +51,23 @@
         if(result.Search==undefined){
             document.querySelector("#container").innerHTML="";
             document.querySelector("#Box").innerHTML="";
-            // var img=document.createElement("img");
-            // img.setAttribute("src","evalaution 3 psc same\licious-clone\movie app\img1.jpg");
-            // img.setAttribute("id","errorImg");
-            
-            // var heading=document.querySelector("h2");
-            // heading.setAttribute("id","error");
-            // heading.innerText="Movie Not Present";
-            // document.querySelector("#Box").append(img,heading);
-            // console.log('Not Found')
+           
             
             var img=document.createElement("img");
             img.setAttribute("src",'img1.jpg');
             img.setAttribute('id','errorImg');
             document.querySelector("#Box").append(img);
-        }else{
+
+        
+        }else
+            {
+                
             displayData(result.Search)
         }
 
     })
     // if(document.querySelector(".ratings").value>4){
-    //        var recommend= document.createElement("p");
-    //        recommend.innerText=recommened;
-
+    //       
     //     }
 
   })
@@ -123,11 +117,15 @@
         var ratings=document.createElement("p")
         ratings.setAttribute("class","ratings");
         ratings.innerText=result.imdbRating;
-       
+       if(result.imdbRating>8.5)
+       {
+           var para=document.createElement("p");
+           para.innerText="Recommend";
+       }
         
       
 
-        div.append(img,actor,country,name,type,year,release_date,ratings)
+        div.append(img,actor,country,name,type,year,release_date,ratings,para)
         document.querySelector("#container").append(div)
      
         })
